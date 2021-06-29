@@ -24,4 +24,6 @@ Aparentemente o export não suporta que o servidor esteja em uma pasta. Então o
 
     APP_URL=http://127.0.0.1:8000
 
-    
+## Referências
+
+https://christoph-rumpel.com/2018/01/how-i-redesigned-my-blog-and-moved-it-from-jekyll-to-laravel
