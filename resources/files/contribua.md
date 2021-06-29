@@ -17,6 +17,7 @@ permalink: /contribua
 9. (extra) Se trabalha na USP, solicite o ingresso na organization USPdev!
 
 Se preferir, assista um vídeo com os passos:
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3WYQVsS9RTU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Para contribuir com os [*slides*](https://github.com/uspdev/slides) dos treinamentos usando o [*prez*](https://github.com/byteclubfr/prez), sugerimos os seguinte *workflow*
