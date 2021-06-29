@@ -1,19 +1,27 @@
 <?php
 
+use League\CommonMark\Environment;
+use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\Block\Renderer\FencedCodeRenderer;
 use League\CommonMark\Block\Renderer\IndentedCodeRenderer;
-use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\Environment;
-use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
+use League\CommonMark\Extension\Autolink\AutolinkExtension;
+use League\CommonMark\Extension\TaskList\TaskListExtension;
+use League\CommonMark\Extension\Strikethrough\StrikethroughExtension;
 use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
-use League\CommonMark\Normalizer\SlugNormalizer;
+use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 
 if (!function_exists('markdown')) {
     function markdown($markdown)
     {
         $environment = Environment::createCommonMarkEnvironment();
-        $environment->addExtension(new GithubFlavoredMarkdownExtension());
+        //$environment->addExtension(new GithubFlavoredMarkdownExtension());
+
+        $environment->addExtension(new AutolinkExtension());
+        //$environment->addExtension(new DisallowedRawHtmlExtension());
+        $environment->addExtension(new StrikethroughExtension());
+        $environment->addExtension(new TableExtension());
+        $environment->addExtension(new TaskListExtension());
 
         $environment->addExtension(new HeadingPermalinkExtension());
         $environment->addExtension(new TableOfContentsExtension());
