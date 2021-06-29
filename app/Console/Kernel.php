@@ -43,10 +43,10 @@ class Kernel extends ConsoleKernel
         Artisan::command('replaceBase', function () {
 
             $appUrl = config('app.url');
-            $baseUrl = config('app-export.baseurl') ?? Yaml::parse(file_get_contents(resource_path('files/config.yml')))['baseurl'];
+            $baseUrl = config('app-export.baseurl') ?? Yaml::parse(file_get_contents(config('app-export.source') . '/_config.yml'))['baseurl'];
 
-            $root = base_path('gh-pages');
-            $files = glob("$root/{,*/,*/*/,*/*/*/}*.html", GLOB_BRACE);
+            $destination = config('app-export.destination');
+            $files = glob("$destination/{,*/,*/*/,*/*/*/}*.html", GLOB_BRACE);
             $i = 0;
             foreach ($files as $file) {
                 $str = file_get_contents($file);
@@ -55,6 +55,7 @@ class Kernel extends ConsoleKernel
                 $i++;
             }
             echo "Replaced $appUrl with $baseUrl in $i files." . PHP_EOL;
+            echo "Site stored in $destination.", PHP_EOL;
         });
 
     }

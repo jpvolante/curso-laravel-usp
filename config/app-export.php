@@ -1,7 +1,12 @@
 <?php
 
 return [
+    # no site de destino, qual será o "base" do html
     'baseurl' => env('EXPORT_BASEURL', null),
+
+    'source' => base_path('resources/files'),
+
+    'destination' => base_path('site'),
 
     'commonmark' => [
 

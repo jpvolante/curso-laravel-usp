@@ -35,9 +35,9 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'gh-pages' => [
+        'export' => [
             'driver' => 'local',
-            'root' => base_path('gh-pages'),
+            'root' => config('app-export.destination'),
         ],
 
         'public' => [

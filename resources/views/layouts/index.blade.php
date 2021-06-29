@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{{ $front['title'] ?? $site['title'] }}</title>
+  <title>{{ $front['title'] ?? '' }} | {{ $site['title'] ?? '' }}</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
@@ -26,7 +26,7 @@
     <h1 class="project-name">
       <a href="{{ config('app.url') }}"><img src="images/uspdev.png" height="100px" /></a>
     </h1>
-    <h2 class="project-tagline">{{ $front['description'] ?? '' }}</h2>
+    <h2 class="project-tagline">{{ $site['description'] ?? '' }}</h2>
 
     @isset($site['menu'])
       @foreach ($site['menu'] as $item)

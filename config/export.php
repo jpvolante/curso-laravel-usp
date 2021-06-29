@@ -47,7 +47,7 @@ return [
      *
      * If empty, your site will be exported to a `dist` folder.
      */
-    'disk' => 'gh-pages',
+    'disk' => 'export',
 
     /*
      * Shell commands that should be run before the export starts when running
