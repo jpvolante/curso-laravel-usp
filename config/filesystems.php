@@ -35,6 +35,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'gh-pages' => [
+            'driver' => 'local',
+            'root' => base_path('gh-pages'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

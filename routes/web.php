@@ -16,3 +16,4 @@ use App\Http\Controllers\SiteController;
 
 Route::get('/', [SiteController::class, 'index']);
 Route::get('/{folder}', [SiteController::class, 'folder']);
+Route::get('/{folder}/{file}', [SiteController::class, 'folderFile']);

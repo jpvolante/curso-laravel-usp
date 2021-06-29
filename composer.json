@@ -12,6 +12,7 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "league/commonmark": "^1.6",
+        "spatie/commonmark-highlighter": "^2.1",
         "spatie/laravel-export": "^0.3.9",
         "spatie/yaml-front-matter": "^2.0",
         "symfony/yaml": "^5.3"

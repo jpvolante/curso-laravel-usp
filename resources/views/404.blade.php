@@ -8,12 +8,12 @@
       text-align: center;
     }
 
-    h1 {
+    /* h1 {
       margin: 30px 0;
       font-size: 4em;
       line-height: 1;
       letter-spacing: -1px;
-    }
+    } */
 
   </style>
 

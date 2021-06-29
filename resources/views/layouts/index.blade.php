@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{{ $site['title'] }}</title>
+  <title>{{ $front['title'] ?? $site['title'] }}</title>
 
-  {{-- {% seo %} --}}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+  <base href="{{ config('app.url') }}{{ $front['permalink'] ?? '' }}">
 
-  <style>
-    @import "css/{{ $site['theme'] }}";
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
+  <link rel="stylesheet" href="css/{{ $site['theme'] }}">
+  <link rel="stylesheet" href="css/custom.css">
 
-    .page-header {
-      padding: 0;
-    }
-
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+  <script src="js/custom.js"></script>
 
 </head>
 
@@ -33,7 +33,6 @@
         <a href="{{ $item['url'] }}" class="btn">{{ $item['text'] }}</a>
       @endforeach
     @endisset
-
   </section>
 
   <section class="main-content">
@@ -57,17 +56,10 @@
       </footer> --}}
   </section>
 
-  {{-- {% if site.google_analytics %}
-      <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', '{{ site.google_analytics }}', 'auto');
-        ga('send', 'pageview');
-      </script>
-    {% endif %} --}}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
 </body>
 
 </html>

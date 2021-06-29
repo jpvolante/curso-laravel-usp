@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6be6d650dad36e70281d096224587e54",
+    "content-hash": "e4769d4e6b89dd9ee30df2df42e2f72c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -932,16 +932,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.48.1",
+            "version": "v8.48.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "edc138060a13c9e5f15c005fad5f6a39b4ccf5fa"
+                "reference": "4c50ebbb7d1a66c5f3511261413cd499d30ba4cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/edc138060a13c9e5f15c005fad5f6a39b4ccf5fa",
-                "reference": "edc138060a13c9e5f15c005fad5f6a39b4ccf5fa",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4c50ebbb7d1a66c5f3511261413cd499d30ba4cd",
+                "reference": "4c50ebbb7d1a66c5f3511261413cd499d30ba4cd",
                 "shasum": ""
             },
             "require": {
@@ -1096,7 +1096,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-06-23T13:41:59+00:00"
+            "time": "2021-06-25T23:57:38+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.6.4",
+            "version": "1.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2"
+                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c3c8b7217c52572fb42aaf84211abccf75a151b2",
-                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
+                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
                 "shasum": ""
             },
             "require": {
@@ -1265,7 +1265,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-19T20:08:14+00:00"
+            "time": "2021-06-26T11:57:13+00:00"
         },
         {
             "name": "league/flysystem",
@@ -2686,6 +2686,82 @@
             "time": "2020-08-18T17:17:46+00:00"
         },
         {
+            "name": "scrivo/highlight.php",
+            "version": "v9.18.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scrivo/highlight.php.git",
+                "reference": "44a3d4136edb5ad8551590bf90f437db80b2d466"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/44a3d4136edb5ad8551590bf90f437db80b2d466",
+                "reference": "44a3d4136edb5ad8551590bf90f437db80b2d466",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.7",
+                "sabberworm/php-css-parser": "^8.3",
+                "symfony/finder": "^2.8|^3.4",
+                "symfony/var-dumper": "^2.8|^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Highlight\\": "",
+                    "HighlightUtilities\\": ""
+                },
+                "files": [
+                    "HighlightUtilities/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Geert Bergman",
+                    "homepage": "http://www.scrivo.org/",
+                    "role": "Project Author"
+                },
+                {
+                    "name": "Vladimir Jimenez",
+                    "homepage": "https://allejo.io",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Martin Folkers",
+                    "homepage": "https://twobrain.io",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
+            "keywords": [
+                "code",
+                "highlight",
+                "highlight.js",
+                "highlight.php",
+                "syntax"
+            ],
+            "support": {
+                "issues": "https://github.com/scrivo/highlight.php/issues",
+                "source": "https://github.com/scrivo/highlight.php"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/allejo",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-12-22T19:20:29+00:00"
+        },
+        {
             "name": "spatie/browsershot",
             "version": "3.47.0",
             "source": {
@@ -2750,6 +2826,60 @@
                 }
             ],
             "time": "2021-06-10T22:10:51+00:00"
+        },
+        {
+            "name": "spatie/commonmark-highlighter",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/commonmark-highlighter.git",
+                "reference": "4090c552b983d58a76a7063519fe7aa977bdcf1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/commonmark-highlighter/zipball/4090c552b983d58a76a7063519fe7aa977bdcf1e",
+                "reference": "4090c552b983d58a76a7063519fe7aa977bdcf1e",
+                "shasum": ""
+            },
+            "require": {
+                "league/commonmark": "^1.5",
+                "php": "^7.2|^8.0",
+                "scrivo/highlight.php": "^9.18.1.4"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "phpunit/phpunit": "^8.5|^9.4",
+                "spatie/phpunit-snapshot-assertions": "^2.0|^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\CommonMarkHighlighter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Highlight your markdown code blocks with league/commonmark",
+            "homepage": "https://github.com/spatie/commonmark-highlighter",
+            "keywords": [
+                "commonmark-highlighter",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/commonmark-highlighter/issues",
+                "source": "https://github.com/spatie/commonmark-highlighter/tree/2.1.1"
+            },
+            "time": "2020-11-11T21:55:01+00:00"
         },
         {
             "name": "spatie/crawler",

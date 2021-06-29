@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Treinamentos
+title: Treinamento Laravel
 permalink: /laravel
 ---
 
@@ -23,14 +23,18 @@ para seu sistema operacional.
 
 ### 0.1 Configuração do git
 
-    sudo apt install git
-    git config --global user.name "Fulano da Silva"
-    git config --global user.email "fulano@usp.br"
+```bash
+sudo apt install git
+git config --global user.name "Fulano da Silva"
+git config --global user.email "fulano@usp.br"
+```
 
 Criar conta no github e adicionar a chave pública gerada dessa forma:
 
-    ssh-keygen
-    cat ~/.ssh/id_rsa.pub
+```bash
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+```
 
 ### 0.2 Criando usuário admin para uso geral no mariadb
 
@@ -61,11 +65,12 @@ virtualizado no virtualbox:
 [https://youtu.be/TO1yt4zyUJw](https://youtu.be/TO1yt4zyUJw)
 
 Criando uma rota para recebimento das requisições.
-{% highlight php %}
+
+```php
 Route::get('/livros', function () {
     echo "Não há livros cadastrados nesses sistema ainda!";
 });
-{% endhighlight %}
+```
 
 ### 1.2 Controller
 
@@ -73,25 +78,25 @@ Vamos começar a espalhar mais o tratamento das requisições em uma arquitetura
 convencional?
 
 Criando um controller:
-{% highlight bash %}
+```bash
 php artisan make:controller LivroController
-{% endhighlight %}
+```
 O arquivo criado está em `app/Http/Controllers/LivroController.php`.
 
 Vamos criar um método chamado `index()` dentro do controller gerado:
-{% highlight php %}
+```php
 public function index(){
     return "Não há livros cadastrados nesses sistema ainda!";
 }
-{% endhighlight %}
+```
 
 Vamos alterar nossa rota para apontar para o método `index()`
 do `LivroController`:
 
-{% highlight php %}
+```php
 use App\Http\Controllers\LivroController;
 Route::get('/livros', [LivroController::class,'index']);
-{% endhighlight %}
+```
 
 E se quisermos passar uma parâmetro no endereço da requisição?
 Exemplo, suponha que o ISBN do livro "Quincas Borba" seja 9780195106817.
@@ -101,7 +106,7 @@ o livro.
 Assim, vamos adicionar um novo método chamado `show($isbn)` que recebe o isbn
 e deverá fazer a lógica de identificação do livro.
 
-{% highlight php %}
+```php
 public function show($isbn){
     if($isbn == '9780195106817') {
         return "Quincas Borba - Machado de Assis";
@@ -109,12 +114,13 @@ public function show($isbn){
         return "Livro não identificado";
     }
 }
-{% endhighlight %}
+```
 
 Por fim, adicionemos a rota prevendo o recebimento do isbn:
-{% highlight php %}
+
+```php
 Route::get('/livros/{isbn}', [LivroController::class, 'show']);
-{% endhighlight %}
+```
 
 ### 1.3 View: Blade
 
@@ -123,8 +129,7 @@ A principal característica do sistema de template é a herança. Então, vamos
 começar criando um template principal `resources/view/main.blade.php` 
 com seções genéricas:
 
-{% highlight html %}
-{% raw %}
+```html
 <!DOCTYPE html>
 <html>
     <head>
@@ -134,33 +139,31 @@ com seções genéricas:
         @yield('content')
     </body>
 </html>
-{% endraw %}
-{% endhighlight %}
+```
 
 Primeiramente, vamos criar o template para o index `resources/views/livros/index.blade.php`:
 obedecendo a estrutura:
 
-{% highlight html %}
-{% raw %}
+```php
 @extends('main')
 @section('content')
   Não há livros cadastrados nesse sistema ainda!
 @endsection
-{% endraw %}
-{% endhighlight %}
+```
 
 E mudamos o controller para chamar essa view:
-{% highlight php %}
+
+```php
 public function index(){
     return view(livros.index);
 }
-{% endhighlight %}
+```
 
 Podemos enviar variáveis diretamente para o template e com alguma
 cautela, podemos até implementar parte da lógica do nosso sistema no template,
 pois o blade é uma linguagem de programação:
 
-{% highlight php %}
+```php
 public function show($isbn){
     if($isbn == '9780195106817') {
         $livro = "Quincas Borba - Machado de Assis";
@@ -171,18 +174,16 @@ public function show($isbn){
         'livro' => $livro
     ]);
 }
-{% endhighlight %}
+```
 
 O template `resources/views/livros/show.blade.php` ficará assim:
 
-{% highlight html %}
-{% raw %}
+```php
 @extends('main')
 @section('content')
   {{ $livro }}
 @endsection
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 1.4 Model
 
@@ -190,24 +191,24 @@ Vamos inserir nossos livros no banco de dados?
 Para tal, vamos criar uma tabela chamada `livros` no banco dados 
 por intermédio de uma migration e um model `Livro` para operarmos nessa tabela.
 
-{% highlight bash %}
+```bash
 php artisan make:migration create_livros_table --create='livros'
 php artisan make:model Livro
-{% endhighlight %}
+```
 
 Na migration criada vamos inserir os campos: titulo, autor e isbn,
 deixando o autor como opcional.
 
-{% highlight php %}
+```php
 $table->string('titulo');
 $table->string('autor')->nullable();
 $table->string('isbn');
-{% endhighlight %}
+```
 
 Usando uma espécie de `shell` do laravel, o tinker, vamos inserir
 o registro do livro do Quincas Borba:
 
-{% highlight bash %}
+```bash
 php artisan tinker
 $livro = new App\Models\Livro;
 $livro->titulo = "Quincas Borba";
@@ -215,7 +216,7 @@ $livro->autor = "Machado de Assis";
 $livro->isbn = "9780195106817";
 $livro->save();
 quit
-{% endhighlight %}
+```
 
 Insira mais livros!
 Veja que o model `Livro` salvou os dados na tabela `livros`. Estranho não?
@@ -224,18 +225,19 @@ Essa é uma da inúmeras convenções que vamos nos deparar ao usar um framework
 Vamos modificar o controller para operar com os livros do banco de dados?
 No método index vamos buscar todos livros no banco de dados e enviar para
 o template:
-{% highlight php %}
+
+```php
 public function index(){
     $livros = App\Models\Livro:all();
     return view('livros.index',[
         'livros' => $livros
     ]);
 }
-{% endhighlight %}
+```
 
 No template podemos iterar sobre todos livros recebidos do controller:
-{% highlight php %}
-{% raw %}
+
+```php
 @forelse ($livros as $livro)
     <li>{{ $livro->titulo }}</li>
     <li>{{ $livro->autor }}</li>
@@ -243,29 +245,27 @@ No template podemos iterar sobre todos livros recebidos do controller:
 @empty
     Não há livros cadastrados
 @endforelse
-{% endraw %}
-{% endhighlight %}
+```
 
 No método `show` vamos buscar o livro com o isbn recebido e entregá-lo
 para o template:
 
-{% highlight php %}
+```php
 public function show($isbn){
     $livro = App\Moldes\Livro::where('isbn',$isbn)->first();
         return view('livros.show',[
             'livro' => $livro
         ]);
 }
-{% endhighlight %}
+```
 
 No template vamos somente mostrar o livro:
-{% highlight php %}
-{% raw %}
+
+```php
 <li>{{ $livro->titulo }}</li>
 <li>{{ $livro->autor }}</li>
 <li>{{ $livro->isbn }}</li>
-{% endraw %}
-{% endhighlight %}
+```
 
 Perceba que parte do código está repetida no index e no show do blade.
 Para melhor organização é comum criar um diretório `resources/views/livros/partials`
@@ -273,11 +273,9 @@ para colocar pedaços de templates. Neste caso poderia ser
 `resources/views/livros/partials/fields.blade.php` e nos templates index e show
 o chamaríamos como:
 
-{% highlight php %}
-{% raw %}
+```php
 @include('livros.partials.fields')
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 1.5 Fakers
 
@@ -285,26 +283,26 @@ Durante o processo de desenvolvimento precisamos manipular dados
 constantemente, então é uma boa ideia gerar alguns dados aleatórios (faker)
 e outros controlados (seed) para não termos que sempre criá-los manualmente:
 
-{% highlight bash %}
+```bash
 php artisan make:factory LivroFactory --model='Livro'
 php artisan make:seed LivroSeeder
-{% endhighlight %}
+```
 
 Inicialmente, vamos definir um padrão para geração de
 dados aleatório `database/factories/LivroFactory.php`:
 
-{% highlight php %}
+```php
 return [
     'titulo' => $this->faker->sentence(3),
     'isbn'   => $this->faker->ean13(),
     'autor'  => $this->faker->name
 ];
-{% endhighlight %}
+```
 
 Em `database/seeders/LivroSeeder.php` vamos criar ao menos um registro
 de controle e chamar o factory para criação de 15 registros aleatórios.
 
-{% highlight php %}
+```php
 $livro = [
     'titulo' => "Quincas Borba",
     'autor'  => "Machado de Assis",
@@ -312,17 +310,17 @@ $livro = [
 ];
 \App\Models\Livro::create($livro);
 \App\Models\Livro::factory(15)->create();
-{% endhighlight %}
+```
 
 Rode o seed e veja que os dados foram criados:
-{% highlight bash %}
+```bash
 php artisan db:seed --class=LivroSeeder
-{% endhighlight %}
+```
 
 Depois de testado e funcionando insira seu seed em 
 `database/seeders/DatabaseSeeder` para ser chamado globalmente:
 
-{% highlight php %}
+```php
 public function run()
 {
     $this->call([
@@ -330,12 +328,12 @@ public function run()
         LivroSeeder::class
     ]);
 }
-{% endhighlight %}
+```
 
 Se precisar zerar o banco e subir todos os seeds na sequência:
-{% highlight bash %}
+```bash
 php artisan migrate:fresh --seed
-{% endhighlight %}
+```
 
 ### 1.6 Exercício MVC
 
@@ -378,20 +376,20 @@ Esse CRUD será modificado ao longo do texto.
 Apague (faça backup se quiser) o model, controller, seed, factory e migration,
 mas não delete os arquivos blades, pois eles serão reutilizados:
 
-{% highlight bash %}
+```bash
 rm app/Models/Livro.php
 rm app/Http/Controllers/LivroController.php
 rm database/seeders/LivroSeeder.php
 rm database/factories/LivroFactory.php
 rm database/migrations/202000000000_create_livros_table.php
-{% endhighlight %}
+```
 
 ### 2.1 Criando model, migration, controller, faker e seed para implementação do CRUD
 
 Vamos recriar tudo novamente usando o comando:
-{% highlight bash %}
+```bash
 php artisan make:model Livro --all
-{% endhighlight %}
+```
 
 Perceba que a migration, o faker, o seed e o controller estão automaticamente
 conectados ao model Livro. E mais, o controller contém todos métodos
@@ -399,12 +397,12 @@ necessários para as operações do CRUD, chamado do laravel de `resource`.
 Ao invés de especificarmos uma a uma a rota para cada operação, podemos
 simplesmente seguir a convenção e substituir a definição anterior por:
 
-{% highlight php %}
+```php
 Route::resource('livros', LivroController::class);
-{% endhighlight %}
+```
 
 Segue uma implementação simples de cada operação:
-{% highlight php %}
+```php
 public function index()
 {
     $livros =  Livro::all();
@@ -458,20 +456,19 @@ public function destroy(Livro $livro)
     $livro->delete();
     return redirect('/livros');
 }
-{% endhighlight %}
+```
 
 Criando os arquivos blades:
 
-{% highlight bash %}
+```bash
 mkdir -p resources/views/livros/partials
 cd resources/views/livros
 touch index.blade.php create.blade.php edit.blade.php show.blade.php 
 touch partials/form.blade.php partials/fields.blade.php
-{% endhighlight %}
+```
 
 Uma implementação básica de cada template:
-{% highlight html %}
-{% raw %}
+```html
 
 <!-- ###### partials/fields.blade.php ###### -->
 <ul>
@@ -528,8 +525,7 @@ ISBN: <input type="text" name="isbn" value="{{ $livro->isbn }}">
   </form>
 @endsection
 
-{% endraw %}
-{% endhighlight %}
+```
 
 Conhecendo o sistema de herança do blade, podemos extender qualquer template,
 inclusive de biblioteca externas. Existem diversas implementações do AdminLTE na
@@ -539,11 +535,9 @@ Consulte a documentação para informações de como instalá-la. No nosso
 template principal `main.blade.php` vamos apagar o que tínhamos antes e
 apenas extender essa biblioteca:
 
-{% highlight html %}
-{% raw %}
+```html
 @extends('laravel-usp-theme::master')
-{% endraw %}
-{% endhighlight %}
+```
 
 Dentre outras vantagens, ganhamos automaticamente o carregamento de frameworks
 como o bootstrap, fontawesome e jquery.mask, dentre outros.
@@ -551,22 +545,20 @@ como o bootstrap, fontawesome e jquery.mask, dentre outros.
 Se quisermos carregar um arquivo js ou css, os colocamos na pasta public.
 Por exemplo, `public/js/livro.js`:
 
-{% highlight javascript %}
+```javascript
 jQuery(function ($) {
     //978-85-333-0398-0
     $(".isbn").mask('000-00-000-0000-0');
 });
-{% endhighlight %}
+```
 
 E no blade do laravel-usp-theme há uma seção chamada `javascripts_head` que podemos
 carregar no `form.blade.php`:
-{% highlight html %}
-{% raw %}
+```html
 @section('javascripts_head')
 <script type="text/javascript" src="{ { asset('js/livro.js') } }"></script>
 @endsection
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 2.3 Exercício CRUD
 
@@ -605,8 +597,7 @@ inicializado pelo laravel. Quando uma requisição não passar na validação, o
 colocará as mensagens de erro nesse array automaticamente. Assim, basta que no
 nosso arquivo principal do blade, façamos uma iteração nesse array:
 
-{% highlight html %}
-{% raw %}
+```html
 @section('flash')
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -618,16 +609,14 @@ nosso arquivo principal do blade, façamos uma iteração nesse array:
     </div>
     @endif
 @endsection
-{% endraw %}
-{% endhighlight %}
+```
 
 Além disso, podemos manualmente no nosso controller enviar uma mensagem `flash`
 para o sessão assim: `request()->session()->flash('alert-info','Livro cadastrado com sucesso')`.
 Como nosso template principal usa o bootstrap, podemos estilizar nossas
 mensagens flash com os valores danger, warning, success e info:
 
-{% highlight html %}
-{% raw %}
+```html
 <div class="flash-message">
   @foreach (['danger', 'warning', 'success', 'info'] as $msg)
     @if(Session::has('alert-' . $msg))
@@ -637,8 +626,7 @@ mensagens flash com os valores danger, warning, success e info:
     @endif
   @endforeach
 </div>
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 3.2 Validação no Controller
 
@@ -648,25 +636,23 @@ passarmos e caso falhe a validação, automaticamente o usuário é retornado
 para página de origem com todos inputs que foram enviados na requisição, além da
 mensagens de erro:
 
-{% highlight php %}
+```php
 $request->validate([
   'titulo' => 'required',
   'autor' => 'required',
   'isbn' => 'required|integer',
 ]);
-{% endhighlight %}
+```
 
 Podemos usar a função `old('titulo',$livro->titulo)` nos formulários, que 
 verifica se há inputs na sessão e em caso negativo usa o segundo parâmetro.
 Assim, podemos deixar o partials/form.blade.php mais elegante:
 
-{% highlight html %}
-{% raw %}
+```html
 Título: <input type="text" name="titulo" value="{{old('titulo', $livro->titulo)}}">
 Autor: <input type="text" name="autor" value="{{old('autor', $livro->autor)}}">
 ISBN: <input type="text" name="isbn" value="{{old('isbn', $livro->isbn)}}">
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 3.3 Validação com a classe Validator
 
@@ -674,7 +660,7 @@ O `$request->validate` faz tudo para nós. Mas se por algum motivo você precisa
 interceder na validação, no que é retornado e para a onde, pode-se usar
 diretamente `Illuminate\Support\Facades\Validator`:
 
-{% highlight php %}
+```php
 use Illuminate\Support\Facades\Validator;
 ...
 $validator = Validator::make($request->all(),[
@@ -685,7 +671,7 @@ if($validator->fails()){
           ->withErrors($validator)
           ->withInput();
 }
-{% endhighlight %}
+```
 
 ### 3.4 FormRequest
 
@@ -699,9 +685,9 @@ adicione a linha `protected $guarded = ['id'];`.
 
 A validação, que muitas vezes será idêntica no store e no update, vamos
 delegar para um FormRequest. Crie um FormRequest com o artisan:
-{% highlight bash %}
+```bash
 php artisan make:request LivroRequest
-{% endhighlight %}
+```
 
 Esse comando gerou o arquivo `app/Http/Requests/LivroRequest.php`. Como
 ainda não falamos de autenticação e autorização, retorne `true` no método
@@ -710,7 +696,7 @@ Perceba que o isbn pode ser digitado com traços ou ponto, mas eu
 só quero validar a parte numérica do campo e ignorar o resto, 
 para isso usei o método `prepareForValidation`:
 
-{% highlight php %}
+```php
 public function rules(){
     $rules = [
         'titulo' => 'required',
@@ -725,7 +711,7 @@ protected function prepareForValidation()
         'isbn' => preg_replace('/[^0-9]/', '', $this->isbn),
     ]);
 }
-{% endhighlight %}
+```
 
 Não queremos livros cadastrados com o mesmo isbn. Há uma validação
 chamada `unique` que pode ser invocada na criação de um livro como 
@@ -736,7 +722,7 @@ outro para edição. Eu normalmente uso apenas um para ambos. Como abaixo,
 veja que as mensagens de erros podem ser customizadas com o método
 `messages()`:
 
-{% highlight php %}
+```php
 public function rules(){
     $rules = [
         'titulo' => 'required',
@@ -763,14 +749,14 @@ public function messages()
         'isbn.unique' => 'Este isbn está cadastrado para outro livro',
     ];
 }
-{% endhighlight %}
+```
 
 No formRequest existe um método chamado `validated()` que devolve um 
 array com os dados validados.
 Vamos invocar o LivroRequest no nosso controller e deixar os
 métodos store e update mais simplificados:
 
-{% highlight php %}
+```php
 use App\Http\Requests\LivroRequest;
 ...
 public function store(LivroRequest $request)
@@ -788,7 +774,7 @@ public function update(LivroRequest $request, Livro $livro)
     request()->session()->flash('alert-info','Livro atualizado com sucesso');
     return redirect("/livros/{$livro->id}");
 }
-{% endhighlight %}
+```
 
 ### 3.5 Exercício FormRequest
 
@@ -815,10 +801,10 @@ Um pouco adiante vamos adicionar outro método de login, que não por senha, mas
 OAuth,  então vamos deixar a opção `password` como nula:
 Assim, em `2014_10_12_000000_create_users_table`:
 
-{% highlight php %}
+```php
 $table->string('password')->nullable();
 $table->string('codpes');
-{% endhighlight %}
+```
 
 Automaticamente o laravel também cria um faker básico para `User` em
 database/factories/UserFactory.php e usando a biblioteca 
@@ -826,7 +812,7 @@ database/factories/UserFactory.php e usando a biblioteca
 modificaremos o faker para trazer pessoas aleatórios, mas no contexto USP.
 
 Nosso faker de usuário então ficará:
-{% highlight php %}
+```php
 $codpes = $this->faker->unique()->servidor;
 return [
     'codpes' => $codpes,
@@ -834,15 +820,15 @@ return [
     'email'  => \Uspdev\Replicado\Pessoa::email($codpes),
     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
 ];
-{% endhighlight %} 
+``` 
 
 O seed para User não vem por default, mas podemos criá-lo assim:
-{% highlight php %}
+```php
 php artisan make:seed UserSeeder
-{% endhighlight %}  
+```  
 
 Vou colocar um usuário de controle:
-{% highlight php %}
+```php
 public function run()
 {
     $user = [
@@ -854,21 +840,21 @@ public function run()
     \App\Models\User::create($user);
     \App\Models\User::factory(10)->create();
 }
-{% endhighlight %}  
+```  
 
 Insira a chamada desse seed em `DatabaseSeeder` e limpe o banco
 recarregando os novos dados fakers:
-{% highlight bash %}
+```bash
 php artisan migrate:fresh --seed
-{% endhighlight %}
+```
 
 Com nossa base de usuário populada vamos implementar um login e logout básicos.
 Para login local, apesar de são ser obrigatório, pode ser útil usar 
 a trait `Illuminate\Foundation\Auth\AuthenticatesUsers` que está no pacote:
 
-{% highlight bash %}
+```bash
 composer require laravel/ui
-{% endhighlight %}
+```
 
 Usando a trait `AuthenticatesUsers` no seu controller você ganha os métodos:
 
@@ -878,18 +864,18 @@ Usando a trait `AuthenticatesUsers` no seu controller você ganha os métodos:
 
 Assim, basta criarmos as rotas correspondentes. Estou criando uma rota raiz para apontar
 para nosso livros.
-{% highlight php %}
+```php
 use App\Http\Controllers\LoginController;
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::get('/', [LivroController::class, 'index']);
-{% endhighlight %}
+```
 
 Mas não queremos usar email para login e sim codpes, para isso, sobrescrevemos
 o método `username()`. Nosso controller final ficará assim:
 
 Seu LoginController ficará:
-{% highlight php %}
+```php
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class LoginController extends Controller
 {
@@ -900,12 +886,11 @@ class LoginController extends Controller
         return 'codpes';
     }
 }
-{% endhighlight %}
+```
 
 Agora falta implementar o formulário para login `auth/login.blade.php`:
 
-{% highlight html %}
-{% raw %}
+```html
 @extends('main')
 @section('content')
 <form method="POST" action="/login">
@@ -932,37 +917,34 @@ Agora falta implementar o formulário para login `auth/login.blade.php`:
     </div>
 </form>
 @endsection
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 4.2 logout
 
 No nosso controller de login vamos adicionar um método para logout:
-{% highlight php %}
+```php
 public function logout()
 {
     auth()->logout();
     return redirect('/');
 }
-{% endhighlight %}
+```
 
 Uma boa prática é implementar o logout usando uma requisição POST:
 
-{% highlight php %}
+```php
 Route::post('logout', [LoginController::class, 'logout']);
-{% endhighlight %}
+```
 
 Segue um formulário com o botão para logout:
-{% highlight html %}
-{% raw %}
+```html
 <form action="/logout" method="POST" class="form-inline" 
     style="display:inline-block" id="logout_form">
     @csrf
     <a onclick="document.getElementById('logout_form').submit(); return false;"
         class="font-weight-bold text-white nounderline pr-2 pl-2" href>Sair</a>
 </form>
-{% endraw %}
-{% endhighlight %}
+```
 
 O template que estamos usando como base possui esse formulário de logout, 
 basta configurarmos algumas opções em `config/laravel-usp-theme.php` e no 
@@ -984,7 +966,7 @@ pode subir um sistema que simula o Oauth da USP [https://github.com/uspdev/senha
 
 Na nossa implementação só permitiremos login dos usuários que existem na
 tabela user:
-{% highlight php %}
+```php
 public function handleProviderCallback()
 {
     $userSenhaUnica = Socialite::driver('senhaunica')->user();
@@ -1003,29 +985,29 @@ public function handleProviderCallback()
     auth()->login($user, true);
     return redirect('/');
 }
-{% endhighlight %}
+```
 
 ### 4.4 One (User) To Many (Livros)
 
 Primeiramente vamos implementar esse relação no nível do banco de dados.
 Na migration dos livros insira:
 
-{% highlight php %}
+```php
 $table->unsignedBigInteger('user_id')->nullable();
 $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');;
-{% endhighlight %}
+```
 
 No faker do Livro podemos invocar o faker do user:
 
-{% highlight php %}
+```php
 'user_id' => \App\Models\User::factory()->create()->id,
-{% endhighlight %}
+```
 
 No model Livro podemos criar um método que carregará o objeto
 `user` automaticamente ou no model `User` podemos carregar todos
 livros do usuário:
 
-{% highlight php %}
+```php
 class Livro extends Model
 {
     public function user(){
@@ -1040,21 +1022,19 @@ class User extends Model
         return $this->hasMany(App\Models\Livro::class);
     }
 }
-{% endhighlight %}
+```
 
 Assim no `fields.blade.php` faremos referência direta  a esse usuário:
 
-{% highlight html %}
-{% raw %}
+```html
 <li>Cadastrado por {{ $livro->user->name ?? '' }}</li>
-{% endraw %}
-{% endhighlight %}
+```
 
 Por fim, no controller, podemos pegar o usuário logado para inserir em user_id assim:
 
-{% highlight php %}
+```php
 $validated['user_id'] = auth()->user()->id;
-{% endhighlight %}
+```
 
 ### 4.5 Exercício Relationships
 
@@ -1076,20 +1056,20 @@ tenho certeza que o campo `codpes` será sempre inteiro, então farei essa mudan
 
 Para usar migration de alteração devemos incluir o pacote `doctrine/dbal` e
 na sequência criar a migration que alterará a tabela existente:
-{% highlight bash %}
+```bash
 composer require doctrine/dbal
 php artisan make:migration change_codpes_column_in_users  --table=users
-{% endhighlight %}
+```
 
 Alterando a coluna `codpes` de string para integer na migration acima:
-{% highlight php %}
+```php
 $table->integer('codpes')->change();
-{% endhighlight %}
+```
 
 Aplique a mudança no banco de dados:
-{% highlight bash %}
+```bash
 php artisan migrate
-{% endhighlight %}
+```
 
 ### 5.2 campos do tipo select 
 
@@ -1097,14 +1077,14 @@ Vamos supor que queremos um campo adicional na tabela de livros
 chamado `tipo`. Já sabemos como criar uma migration de alteração
 para alterar a tabela livros:
 
-{% highlight bash %}
+```bash
 php artisan make:migration add_tipo_column_in_livros --table=livros
-{% endhighlight %}
+```
 
 E adicionamos na nova coluna:
-{% highlight php %}
+```php
 $table->string('tipo');
-{% endhighlight %}
+```
 
 Vamos trabalhar com apenas dois tipos: nacional e internacional.
 A lista de tipos poderia vir de qualquer fonte: outro model, api,
@@ -1113,27 +1093,26 @@ usar em todo o sistema. No model do livro vamos adicionar um método
 estático que retorna os tipos, pois assim, fica fácil mudar caso 
 a fonte seja alterada no futuro:
 
-{% highlight php %}
+```php
 public static function tipos(){
     return [
         'Nacional',
         'Internacional'
     ];
 }
-{% endhighlight %}
+```
 Dependendo do caso, talvez você prefira um array com chave-valor.
 
 No faker, podemos escolher um tipo aleatório assim:
-{% highlight php %}
+```php
 $tipos = \App\Models\Livro::tipos();
 ...
 'tipo' => $tipos[array_rand($tipos)],
-{% endhighlight %}
+```
 No `LivroSeeder.php` basta fixarmos um tipo.
 
 No `form.blade.php` podemos inserir o tipo com um campo select desta forma:
-{% highlight html %}
-{% raw %}
+```html
 <select name="tipo">
     <option value="" selected=""> - Selecione  -</option>
     @foreach ($livro::tipos() as $tipo)
@@ -1142,12 +1121,10 @@ No `form.blade.php` podemos inserir o tipo com um campo select desta forma:
         </option>
     @endforeach
 </select>
-{% endraw %}
-{% endhighlight %}
+```
 
 Se quisermos contemplar o `old` para casos de erros de validação:
-{% highlight html %}
-{% raw %}
+```html
 <select name="tipo">
     <option value="" selected=""> - Selecione  -</option>
     @foreach ($livro::tipos() as $tipo)
@@ -1164,17 +1141,16 @@ Se quisermos contemplar o `old` para casos de erros de validação:
         @endif
     @endforeach
 </select>
-{% endraw %}
-{% endhighlight %}
+```
 
 Por fim, temos que validar o campo tipo para que só entrem os valores do nosso array.
 No LivroRequest.php:
 
-{% highlight php %}
+```php
 use Illuminate\Validation\Rule;
 ...
 'tipo'   => ['required', Rule::in(\App\Models\Livro::tipos())],
-{% endhighlight %}
+```
 
 ### 5.3 mutators
 Há situações em que queremos fazer um leve processamento antes de salvar
@@ -1182,14 +1158,14 @@ um valor no banco de dados e logo após recuperarmos um valor. Vamos
 adicionar um campo para preço. Já sabemos como criar uma migration 
 de alteração para alterar a tabela livros:
 
-{% highlight bash %}
+```bash
 php artisan make:migration add_preco_column_in_livros --table=livros
-{% endhighlight %}
+```
 
 E adicionamos na nova coluna:
-{% highlight php %}
+```php
 $table->float('preco')->nullable();
-{% endhighlight %}
+```
 
 No LivroRequest também deixaremos esse campo como 
 opcional: `'preco'  => 'nullable'`. Devemos adicionar
@@ -1200,7 +1176,7 @@ Queremos que o usuário digite, por exemplo, `12,50`, mas guardaremos
 inversa. Poderíamos fazer esse tratamento diretamente no controller,
 mas também podemos usar `mutators` diretamente no model do livro:
 
-{% highlight php %}
+```php
 public function setPrecoAttribute($value){
     $this->attributes['preco'] = str_replace(',','.',$value);
 }
@@ -1208,15 +1184,15 @@ public function setPrecoAttribute($value){
 public function getPrecoAttribute($value){
     return number_format($value, 2, ',', '');
 }
-{% endhighlight %}
+```
 
 Ou caso você use `created_at` no seu sistema, é útil fazer:
-{% highlight php %}
+```php
 public function getCreatedAtAttribute($value)
 {
     return \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d/m/Y H:i');
 }
-{% endhighlight %}
+```
 
 ### 5.4 Exercício de migration de alteração, campos do tipo select e mutators
 
@@ -1233,8 +1209,7 @@ public function getCreatedAtAttribute($value)
 Para criarmos um sistema de busca simples, vamos começar colocando o botão
 de busca no `index.blade.php`:
 
-{% highlight html %}
-{% raw %}
+```html
 <form method="get" action="/livros">
 <div class="row">
     <div class=" col-sm input-group">
@@ -1247,13 +1222,12 @@ de busca no `index.blade.php`:
     </div>
 </div>
 </form>
-{% endraw %}
-{% endhighlight %}
+```
 
 No LivroController, basta verificarmos se foi enviado algum valor para o campo
 `search`, se sim, fazemos uma busca, e em caso negativo, retornamos todos livros.
 
-{% highlight php %}
+```php
 public function index(Request $request){
 if(isset($request->search)) {
     $livros = Livro::where('autor','LIKE',"%{$request->search}%")
@@ -1261,7 +1235,7 @@ if(isset($request->search)) {
 } else {
     $livros = Livro::all();
 }
-{% endhighlight %}
+```
 
 ### 6.2 Paginação
 
@@ -1270,22 +1244,20 @@ página. O melhor seria fazer a query em blocos, substituindo `all()` ou `get()`
 `paginate(15)`. Neste caso, no blade usamos a seguinte estrutura para 
 navegação em blocos:
 
-{% highlight html %}
-{% raw %}
+```html
 {{ $livros->appends(request()->query())->links() }}
-{% endraw %}
-{% endhighlight %}
+```
 
 A partir do laravel 8 o bootstrap não é mais padrão, mas podemos configurá-lo
 como padrão em `AppServiceProvider.php`:
 
-{% highlight php %}
+```php
 use Illuminate\Pagination\Paginator;
 public function boot()
 {
     Paginator::useBootstrap();
 }
-{% endhighlight %}
+```
 
 ### 6.3 Autorização
 
@@ -1296,17 +1268,17 @@ implementar essa lógica, seja ela qual for. No nosso exemplo, vamos criar
 um campo boleano chamado `is_admin` no model `User` que será `TRUE` para quem 
 for admin do sistema e `FALSE` para quem for um usuário comum:
 
-{% highlight bash %}
+```bash
 php artisan make:migration add_is_admin_to_users_table --table=users
-{% endhighlight %}
+```
 
 O campo `is_admin` na migration criada ficará assim:
-{% highlight php %}
+```php
 $table->boolean('is_admin')->default(FALSE);
-{% endhighlight %}
+```
 
 E por fim alteramos nosso usuário de controle para ser admin:
-{% highlight php %}
+```php
 public function run()
 {
     $user = [
@@ -1317,15 +1289,14 @@ public function run()
         'is_admin' => TRUE
     ];
 }
-{% endhighlight %}  
+```  
 
 Poderíamos implementar um CRUD completo para usuários do sistema, mas já
 sabemos fazer isso. Vamos apenas criar uma entrada chamada *inserir administrador*
 que recebe o número USP e coloca `TRUE` na tabela `users`. Um formulário básico 
 para essa operação `resources/views/users/novoadmin.blade.php`:
 
-{% highlight html %}
-{% raw %}
+```html
 @extends('main')
 @section('content')
 <form method="POST" action="/novoadmin">
@@ -1343,26 +1314,25 @@ para essa operação `resources/views/users/novoadmin.blade.php`:
     </div>
 </form>
 @endsection
-{% endraw %}
-{% endhighlight %}
+```
 
 Um controler mínimo para nosso exemplo:
-{% highlight bash %}
+```bash
 php artisan make:controller UserController
-{% endhighlight %}
+```
 
 Rotas para mostrar formulário e enviar a requisição para o
 controller:
 
-{% highlight php %}
+```php
 use App\Http\Controllers\UserController;
 Route::get('/novoadmin', [UserController::class, 'form']);
 Route::post('/novoadmin', [UserController::class, 'register']);
-{% endhighlight %}
+```
 
 No controler criamos os métodos correspondentes:
 
-{% highlight php %}
+```php
 public function form()
 {
     return view('users.novoadmin');
@@ -1380,7 +1350,7 @@ public function register(Request $request)
     $user->save();
     return redirect("/novoadmin/");
 }
-{% endhighlight %}
+```
 
 Mas temos um problema. E se o número USP informado não existir?
 Todas as chamadas subsequentes vão quebrar. Vamos validar esse número?
@@ -1389,21 +1359,21 @@ Com auxílio da biblioteca
 [https://github.com/uspdev/laravel-usp-validators](https://github.com/uspdev/laravel-usp-validators)
 podemos fazer isso tranquilamente.
 
-{% highlight php %}
+```php
 $request->validate([
     'codpes' => 'required|integer|codpes',
 ]);
-{% endhighlight %}
+```
 
 Agora que temos um campo que nos indica que o usuário é um admin
 podemos criar um `Gate` que faz essa verificação, em 
 `app/Providers/AuthServiceProvider.php`:
 
-{% highlight php %}
+```php
 Gate::define('admin', function ($user) {
     return $user->is_admin;
 });
-{% endhighlight %}
+```
 
 Para cada método do nosso controller podemos restringir o acesso
 para o gate admin usando `$this->authorize('admin');`. Já no blade
@@ -1427,31 +1397,30 @@ em um model a parte, assim teremos mais controle em termos de acesso
 e permissão sobre os arquivos, pois não vamos deixar esses
 arquivos em um diretório público na web.
 
-{% highlight php %}
+```php
 php artisan make:model File --all
-{% endhighlight %}
+```
 
-{% highlight php %}
+```php
 $table->string('original_name');
 $table->string('path');
 $table->unsignedBigInteger('livro_id')->nullable();
 $table->foreign('livro_id')->references('id')->on('livros')->onDelete('set null');
-{% endhighlight %}
+```
 
-{% highlight bash %}
+```bash
 php artisan migrate
-{% endhighlight %}
+```
 
 Rotas: 
-{% highlight php %}
+```php
 Route::resource('files', FileController::class);
-{% endhighlight %}
+```
 
 Em `resources/views/files/partials/form.blade.php` vamos criar um formulário
 de upload de arquivos para imagens do livro e não vamos estender ninguém:
 
-{% highlight html %}
-{% raw %}
+```html
 Enviar Imagens:
 <form method="post" enctype="multipart/form-data" action="/files">
   @csrf
@@ -1459,18 +1428,15 @@ Enviar Imagens:
   <input type="file" name="file">
   <button type="submit" class="btn btn-success"> Enviar </button>
 </form>
-{% endraw %}
-{% endhighlight %}
+```
 
 Em `resources/views/livros/show.blade.php` vamos incluí-lo:
-{% highlight html %}
-{% raw %}
+```html
 @include('files.partials.form')
-{% endraw %}
-{% endhighlight %}
+```
 
 No método store implementamos:
-{% highlight php %}
+```php
 $request->validate([
     'file'     => 'required|file|image|mimes:jpeg,png|max:2048',
     'livro_id' => 'required|integer|exists:livros,id'
@@ -1481,19 +1447,19 @@ $file->original_name = $request->file('file')->getClientOriginalName();
 $file->path = $request->file('file')->store('.');
 $file->save();
 return back();
-{% endhighlight %}
+```
 
 Método show:
-{% highlight php %}
+```php
 use Illuminate\Support\Facades\Storage;
 public function show(File $file)
 {
     return Storage::download($file->path, $file->original_name);
 }
-{% endhighlight %}
+```
 
 No model do Livro:
-{% highlight php %}
+```php
 class Livro extends Model
 {
     public function files()
@@ -1508,22 +1474,20 @@ class File extends Model
         return $this->belongsTo(\App\Models\Livro::class);
     }
 }
-{% endhighlight %}
+```
 
 Por fim mostramos as imagens assim:
-{% highlight html %}
-{% raw %}
+```html
 @foreach($livro->files as $file)
   <img src="/files/{{$file->id}}">
 @endforeach
-{% endraw %}
-{% endhighlight %}
+```
 
 Muito útil para verificar o mimeType, pois normalmente você
 dará tratamento diferentes para pdf ou imagens:
-{% highlight php %}
+```php
 $request->file('file')->getClientMimeType()
-{% endhighlight %}
+```
 
 ### 7.2 Tabela pivot (Many To Many)
 
@@ -1534,23 +1498,23 @@ uma tabela de empréstimo, que guardará o id do livro emprestado,
 o id do usuário que pegará o livro, a data do empréstimo, que usaremos `created_at`
 e um campo extra: data de devolução:
 
-{% highlight bash %}
+```bash
 php artisan make:migration create_emprestimos_table --create='emprestimos'
-{% endhighlight %}
+```
 
 Campos:
-{% highlight php %}
+```php
 $table->unsignedBigInteger('livro_id');
 $table->unsignedBigInteger('user_id');
 $table->foreign('livro_id')->references('id')->on('livros')->onDelete('cascade');
 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 $table->date('data_devolucao')->nullable();
-{% endhighlight %}
+```
 
 Apesar de não ser obrigatório, vamos implementar um model
 para manipular essa tabela pivot de empréstimos:
 
-{% highlight php %}
+```php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -1560,10 +1524,10 @@ class Emprestimo extends Pivot
     use HasFactory;
     public $incrementing = true;
 }
-{% endhighlight %}
+```
 
 Vamos possibilitar a busca dos empréstimo por ambos models:
-{% highlight php %}
+```php
 class Livro extends Model
 {
     public function emprestimos()
@@ -1591,18 +1555,18 @@ class User extends Model
                     ]);
     }
 }
-{% endhighlight %}
+```
 
 Em `LivroControler` vamos criar um método para registrar o livro e outro para
 devolvê-lo com as rotas correspondentes:
 
-{% highlight php %}
+```php
 Route::post('/emprestar/{livro}', [LivroController::class,'emprestar']);
 Route::post('/devolver/{livro}', [LivroController::class,'devolver']);
-{% endhighlight %}
+```
 
 Controller:
-{% highlight php %}
+```php
 public function emprestar(Request $request, Livro $livro){
     $user = User::find($request->user_id);
     $livro->emprestimos()->attach($user);
@@ -1616,12 +1580,11 @@ public function devolver(Request $request, Livro $livro){
     ]);
     return redirect('/livros/' . $livro->id);
 }
-{% endhighlight %}
+```
 
 Na `show.blade.php` dos livros vamos inserir um botão de empréstimo: 
 
-{% highlight php %}
-{% raw %}
+```php
 <form method="POST" action="/emprestar/{{$livro->id}}">
 @csrf
 id usuário: <input type="text" name="user_id">
@@ -1641,28 +1604,27 @@ id usuário: <input type="text" name="user_id">
 @endif
 <br>
 @endforeach
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 7.3 Trabalhando com pdf
 
 Instale a biblioteca:
-{% highlight bash %}
+```bash
 composer require barryvdh/laravel-dompdf
 php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
-{% endhighlight %}
+```
 
 Crie uma estrutura para os templates e lembre-se de usar o poder
 da herança, ou seja, você pode criar uma template base e estendê-lo.
-{% highlight bash %}
+```bash
 mkdir resources/views/pdfs/
 touch resources/views/pdfs/exemplo.blade.php
-{% endhighlight %}
+```
 
 Escreva algo em `exemplo.blade.php` usando blade, no
 controller:
 
-{% highlight bash %}
+```bash
 use PDF;
 public function convenio(Convenio $convenio){
     $pdf = PDF::loadView('pdfs.exemplo', [
@@ -1670,12 +1632,12 @@ public function convenio(Convenio $convenio){
     ]);
     return $pdf->download('exemplo.pdf');
 }
-{% endhighlight %}
+```
 
 Se ao invés de um controller, você estiver enviando uma email,
 você faria assim:
 
-{% highlight bash %}
+```bash
 ...
 class ExemploMail extends Mailable
 {
@@ -1689,21 +1651,21 @@ class ExemploMail extends Mailable
                     ->attachData($pdf->output(), 'exemplo.pdf')
         }
 }
-{% endhighlight %}
+```
 
 ### 7.4 Excel
 [https://youtu.be/Ik9siHfVUkk](https://youtu.be/Ik9siHfVUkk)
 
 Instalação  
-{% highlight bash %}
+```bash
 composer require maatwebsite/excel
 mkdir app/Exports
 touch app/Exports/ExcelExport.php
-{% endhighlight %}
+```
 
 Implementar uma classe que recebe um array multidimensional com os dados, linha a linha.
 E outro array com os títulos;
-{% highlight php %}
+```php
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
@@ -1729,10 +1691,10 @@ class ExcelExport implements FromArray, WithHeadings
     }
 }
 
-{% endhighlight %}
+```
 
 Usando no controller:
-{% highlight php %}
+```php
 use Maatwebsite\Excel\Excel;
 use App\Exports\ExcelExport;
 
@@ -1747,18 +1709,18 @@ public function exemplo(Excel $excel){
     $export = new ExcelExport($data,$headings);
     return $excel->download($export, 'exemplo.xlsx');
 }
-{% endhighlight %}
+```
 
 #### 7.4.1 Outra biblioteca para excel Excel
 
 Uma outra opção é usar `fast-excel` uma biblioteca mais integrada com
 o laravel:  
-{% highlight bash %}
+```bash
 composer require rap2hpoutre/fast-excel
-{% endhighlight %}
+```
 
 O controller ficaria:
-{% highlight php %}
+```php
 use Rap2hpoutre\FastExcel\FastExcel;
 
 public function exemplo(){
@@ -1766,7 +1728,7 @@ public function exemplo(){
     $export = new FastExcel(Livro::all());
     return $export->download('arquivo.xlsx');
 }
-{% endhighlight %}
+```
 
 
 ### 7.5 Modal e Ajax
@@ -1776,17 +1738,16 @@ Vamos alterar o cadastro e edição dos livros usando um modal do bootstrap
 
 Nos métodos `store` e `update` do LivroController vamos devolver o
 objeto livro :
-{% highlight php %}
+```php
 return response()->json($livro);
-{% endhighlight %}
+```
 
 Quando a validação não passa o laravel automaticamente devolve um json
 `responseJSON.errors`.
 
 Vamos modificar `form.blade.php` para ficar assim:
 
-{% highlight html %}
-{% raw %}
+```html
 <form name="livros" id="livroForm">
     @csrf
     @if(isset($livro->id)) @method('patch') @endif
@@ -1796,14 +1757,12 @@ Vamos modificar `form.blade.php` para ficar assim:
         <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
 </form>
-{% endraw %}
-{% endhighlight %}
+```
 
 Neste exemplo vou usar `create.blade.php` e `edit.blade.php` não são mais necessários.
 No lugar vou criar o `partials/modal.blade.php`:
 
-{% highlight html %}
-{% raw %}
+```html
 <div class="modal fade" id="livroModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -1820,25 +1779,22 @@ No lugar vou criar o `partials/modal.blade.php`:
     </div>
   </div>
 </div>
-{% endraw %}
-{% endhighlight %}
+```
 
 No `index.blade.php` vamos colocar um botão para criação de um novo livro e
 no `show.blade.php` um botão para editar: 
-{% highlight html %}
-{% raw %}
+```html
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#livroModal">
   Novo / Editar
 </button>
 ...
 @include('livros.partials.modal')
 @include('livros.partials.ajax')
-{% endraw %}
-{% endhighlight %}
+```
 
 O index agora necessita de um objeto Livro:
 
-{% highlight php %}
+```php
     public function index()
     {
         $livros =  Livro::all();
@@ -1847,11 +1803,11 @@ O index agora necessita de um objeto Livro:
             'livro'  => new Livro
         ]);
     }
-{% endhighlight %}
+```
 
 Vamos criar um arquivo para colocar o ajax `partials/ajax.blade.php`:
 
-{% highlight javascript %}
+```javascript
 {% raw %}
 @section('javascripts_bottom')
 <script>
@@ -1891,8 +1847,7 @@ Vamos criar um arquivo para colocar o ajax `partials/ajax.blade.php`:
   });
 </script>
 @endsection
-{% endraw %}
-{% endhighlight %}
+```
 
 ### 7.6 Vídeos
 

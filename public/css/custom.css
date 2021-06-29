@@ -1,0 +1,32 @@
+
+.page-header {
+    padding: 5px;
+    margin: 0;
+}
+
+.project-name {
+  padding: 5px;
+  margin: 0;
+  margin-bottom: -20px;
+}
+
+.project-tagline{
+  margin: 5px;
+  padding: 0;
+}
+
+@media screen and (min-width: 64em){
+  .btn {
+      padding: 0.5rem 0.5rem;
+  }
+}
+
+.toc p {
+  margin: 0;
+}
+
+table {
+  width: 100% !important;
+  table-layout: fixed !important;
+  overflow-wrap: break-word;
+}

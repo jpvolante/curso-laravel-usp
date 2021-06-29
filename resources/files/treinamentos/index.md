@@ -4,7 +4,7 @@ title: Treinamentos
 permalink: /treinamentos
 ---
 
-## [Laravel no contexto da USP  - 2020](/laravel) 
+## [Laravel no contexto da USP  - 2020](laravel) 
 ## [Laravel at USP: A Crash Course  - 2021](/laravel-en) 
 
 ## Material do Curso de Laravel de 2018
@@ -16,10 +16,4 @@ permalink: /treinamentos
 - [VM no google drive](https://goo.gl/pgVCZn)
 - [VM no linorg](http://linorg.usp.br/cursos/git_lavarel/)
 - [Aulas conceituais laravel - Leandro Ramos](https://www.youtube.com/playlist?list=PLIFOx3X8xDut2X2ydevlVvFKkqFxZ4SX9) 
-
-
-
-
-
-
 

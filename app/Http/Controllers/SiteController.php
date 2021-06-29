@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Http;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Symfony\Component\Yaml\Yaml;
 
@@ -15,6 +16,12 @@ class SiteController extends Controller
     public function folder($folder)
     {
         return SELF::gather(resource_path('files/' . $folder . '/index.md'));
+    }
+
+    public function folderFile($folder, $file)
+    {
+
+        return SELF::gather(resource_path('files/' . $folder . '/' . $file . '.md'));
     }
 
     protected function gather($file)
