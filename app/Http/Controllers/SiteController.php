@@ -56,10 +56,14 @@ class SiteController extends Controller
         }
 
         $document = YamlFrontMatter::parse(file_get_contents($file));
+        $front = $document->matter();
 
-        return view('index', [
+        // escolhendo layout
+        $layout = isset($front['layout']) ? $front['layout'] : 'default';
+
+        return view("layouts.$layout", [
             'site' => $site,
-            'front' => $document->matter(),
+            'front' => $front,
             'content' => markdown($document->body()),
         ]);
     }

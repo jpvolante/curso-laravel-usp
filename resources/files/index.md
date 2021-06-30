@@ -1,5 +1,5 @@
 ---
-layout: index
+layout: default
 description: devs da Universidade de São Paulo
 ---
 

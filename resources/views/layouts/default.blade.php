@@ -3,11 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>{{ $front['title'] ?? '' }} | {{ $site['title'] ?? '' }}</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+
+  <title>{{ $front['title'] ?? '' }} | {{ $site['title'] ?? '' }}</title>
   <base href="{{ $site['base'] }}">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
   <link rel="stylesheet" href="css/{{ $site['theme'] }}">
@@ -36,10 +37,13 @@
   </section>
 
   <section class="main-content">
+    @section('content')
+      {!! $content ?? '' !!}
+    @show
+  </section>
 
-    @yield('content')
 
-    {{-- <h1> Últimos Posts: </h1>
+  {{-- <h1> Últimos Posts: </h1>
               <ul>
                   {% for post in site.posts %}
                       <li>
@@ -54,7 +58,6 @@
         {% endif %}
         
       </footer> --}}
-  </section>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
   <script>

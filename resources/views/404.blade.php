@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.default')
 
 @section('content')
   <style type="text/css" media="screen">
