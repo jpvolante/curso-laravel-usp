@@ -2,11 +2,11 @@
 
 return [
     # no site de destino, qual será o "base" do html
-    'baseurl' => env('EXPORT_BASEURL', null),
+    'baseurl' => env('BASEURL', base_path('gh-pages')),
 
-    'source' => base_path('resources/files'),
+    'source' =>  env('SOURCE', base_path('resources/files')),
 
-    'destination' => base_path('site'),
+    'destination' => env('DESTINATION', base_path('gh-pages')),
 
     'commonmark' => [
 

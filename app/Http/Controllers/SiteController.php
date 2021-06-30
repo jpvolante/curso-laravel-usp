@@ -15,7 +15,7 @@ class SiteController extends Controller
 
     public function folder($folder)
     {
-        // vamos procurar permalink
+        // vamos procurar permalinks nas pasta raiz
         $permalinks = SELF::permalinks();
         if (in_array("/$folder", array_keys($permalinks))) {
             return SELF::gather($permalinks["/$folder"]);
@@ -27,7 +27,6 @@ class SiteController extends Controller
 
     public function folderFile($folder, $file)
     {
-
         return SELF::gather(resource_path('files/' . $folder . '/' . $file . '.md'));
     }
 
@@ -46,6 +45,12 @@ class SiteController extends Controller
     protected function gather($file)
     {
         $site = Yaml::parse(file_get_contents(config('app-export.source') . '/_config.yml'));
+        if (isset($front['permalink'])) {
+            $site['base'] = str_replace('//', '/', config('app.url') . $front['permalink']);
+        } else {
+            $site['base'] = config('app.url');
+        }
+
         if (!file_exists($file)) {
             return view('404', ['site' => $site]);
         }
@@ -53,9 +58,9 @@ class SiteController extends Controller
         $document = YamlFrontMatter::parse(file_get_contents($file));
 
         return view('index', [
+            'site' => $site,
             'front' => $document->matter(),
             'content' => markdown($document->body()),
-            'site' => $site,
         ]);
     }
 }

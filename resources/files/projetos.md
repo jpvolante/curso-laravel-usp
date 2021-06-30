@@ -4,8 +4,8 @@ title: Projetos
 permalink: /projetos
 ---
 
-Nossos projetos são diversos em termos linguagens de programação, frameworks e natureza e estão disponíveis no [github.com](github.com) e espelhados em 
-[gitlab.uspdigital.usp.br](gitlab.uspdigital.usp.br), entretanto, por ambos, é possível interagir por
+Nossos projetos são diversos em termos linguagens de programação, frameworks e natureza e estão disponíveis no [github.com](http://github.com) e espelhados em 
+[gitlab.uspdigital.usp.br](http://gitlab.uspdigital.usp.br), entretanto, por ambos, é possível interagir por
 issues ou contribuir enviando, revisando ou testando pull/merge requests. Sempre bom lembrar
 que contribuições não envolvem apenas desenvolvimento de código: uso, documentação, traduação e
 divulgação são todas formas que ajudam e muito o amadurecimento de softwares. Segue uma lista
@@ -15,6 +15,7 @@ com as categorias dos projetos:
 
 ## Sistemas em PHP
 
+- [chamados](https://github.com/uspdev/chamados): Sistema de chamados/atendimentos com filas personalizáveis
 - [votacao-rapida](https://github.com/uspdev/votacao-rapida): Sistema de votação rápida para ser utilizado em reuniões de colegiados
 - [copaco](https://github.com/uspdev/copaco): gerenciamento de redes e equipamentos
 - [ccg](https://github.com/uspdev/ccg): Contagem de Créditos da Graduação

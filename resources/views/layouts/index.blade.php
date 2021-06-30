@@ -6,16 +6,16 @@
   <title>{{ $front['title'] ?? '' }} | {{ $site['title'] ?? '' }}</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#157878">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
-  <base href="{{ config('app.url') }}{{ $front['permalink'] ?? '' }}">
+  <base href="{{ $site['base'] }}">
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
   <link rel="stylesheet" href="css/{{ $site['theme'] }}">
   <link rel="stylesheet" href="css/custom.css">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
   <script src="js/custom.js"></script>
 
