@@ -11,10 +11,10 @@ permalink: /~jpvolante/uspdev-site/public/laravel/
 - [Aula 1: Estrutura do Projeto (Padrão MVC)](/~jpvolante/uspdev-site/public/laravel/aula-1-estrutura-projeto)
 - [Aula 2: CRUD: Create (Criação), Read (Consulta), Update (Atualização) e Delete (Destruição)
     ](/~jpvolante/uspdev-site/public/laravel/aula-2-crud)
-- [Aula 3: Trabalhando com Views](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
-- [Aula 4: Validação de Formulários](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
-- [Aula 5: Banco de Dados e Eloquent](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
-- [Aula 6: Autenticação de Usuários](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Aula 3: Validação](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Aula 4: Autenticação e Relationships](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Aula 5: Migration de alteração, campos do tipo select e mutators](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Aula 6: Buscas, paginação e autorização](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
 
 ## Material Extra
 - [Upload de arquivos](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
