@@ -103,6 +103,6 @@ clear
 ## Vídeo Tutorial
 
 Este vídeo, utilizado pela FFLCH para novos estagiários(as), demonstra como preparar o ambiente de desenvolvimento com Debian 10 virtualizado no VirtualBox: [Assista aqui](https://youtu.be/qImwzkP0nQE).
-
+------------------------
 ## Navegação
 [Voltar ao Menu Principal](/~jpvolante/uspdev-site/public/laravel/)

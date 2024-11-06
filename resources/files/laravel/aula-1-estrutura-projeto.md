@@ -250,3 +250,7 @@ database/migrations/202000000000_create_livro_fulanos_table.php
 resources/views/livro_fulanos/index.blade.php
 resources/views/livro_fulanos/show.blade.php
 resources/views/livro_fulanos/partials/fields.blade.php
+
+------------------------
+## Navegação
+[Voltar ao Menu Principal](/~jpvolante/uspdev-site/public/laravel/)
