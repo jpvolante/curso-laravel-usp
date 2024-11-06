@@ -1,5 +1,5 @@
 # Aula 3: Validação - Laravel
-
+Video de apoio: https://youtu.be/GxDUZIolQOw
 ## 3.1 Mensagens Flash
 Até agora, implementamos o CRUD sem validar os dados que os usuários inserem. Vamos adicionar algumas regras de validação nos campos de cadastro e edição de livros.
 
