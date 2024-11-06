@@ -8,7 +8,7 @@ permalink: /~jpvolante/uspdev-site/public/laravel/
 
 ## Laravel
 - [Aula 0: Introdução ao Laravel](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
-- [Aula 1: Estrutura do Projeto](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Aula 1: Estrutura do Projeto](/~jpvolante/uspdev-site/public/laravel/aula-1-estrutura-projeto)
 - [Aula 2: Rotas e Controladores](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
 - [Aula 3: Trabalhando com Views](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
 - [Aula 4: Validação de Formulários](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
