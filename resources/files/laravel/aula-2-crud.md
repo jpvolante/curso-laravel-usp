@@ -38,7 +38,7 @@ php artisan config:clear
 php artisan cache:clear
 ```
 
-Veja a implementação simples de cada operação no controller:
+Veja a implementação do CRUD simples de cada operação no controller:
 
 ```php
 public function index()
