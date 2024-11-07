@@ -14,7 +14,7 @@ permalink: /~jpvolante/uspdev-site/public/laravel/
 - [Aula 3: Validação](/~jpvolante/uspdev-site/public/laravel/aula-3-validacao)
 - [Aula 4: Autenticação e Relationships](/~jpvolante/uspdev-site/public/laravel/aula-4-autenticacao)
 - [Aula 5: Migration de alteração, campos do tipo select e mutators](/~jpvolante/uspdev-site/public/laravel/aula-5-migration)
-- [Aula 6: Buscas, paginação e autorização](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Aula 6: Buscas, paginação e autorização](/~jpvolante/uspdev-site/public/laravel/aula-6-buscas)
 
 ## Material Extra
 - [Upload de arquivos](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
