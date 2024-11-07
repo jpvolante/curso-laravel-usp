@@ -18,8 +18,8 @@ permalink: /~jpvolante/uspdev-site/public/laravel/
 
 ## Material Extra
 - [Upload de arquivos](/~jpvolante/uspdev-site/public/laravel/aula-7-arquivos)
-- [Tabela pivot (Many To Many)](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
-- [Trabalhando com PDF](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Tabela pivot (Many To Many)](/~jpvolante/uspdev-site/public/laravel/aula-7-tabela)
+- [Trabalhando com PDF](/~jpvolante/uspdev-site/public/laravel/aula-7-pdf)
 - [Excel](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
 - [Modal e Ajax](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
 - [Vídeos](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)

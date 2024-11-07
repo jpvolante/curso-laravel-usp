@@ -113,3 +113,4 @@ $request->file('file')->getClientMimeType();
 
 ## Navegação
 [Voltar ao Menu Principal](/~jpvolante/uspdev-site/public/laravel/)
+
