@@ -17,7 +17,7 @@ permalink: /~jpvolante/uspdev-site/public/laravel/
 - [Aula 6: Buscas, paginação e autorização](/~jpvolante/uspdev-site/public/laravel/aula-6-buscas)
 
 ## Material Extra
-- [Upload de arquivos](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
+- [Upload de arquivos](/~jpvolante/uspdev-site/public/laravel/aula-7-arquivos)
 - [Tabela pivot (Many To Many)](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
 - [Trabalhando com PDF](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
 - [Excel](/~jpvolante/uspdev-site/public/laravel/aula-0-introducao)
